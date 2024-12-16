@@ -1,0 +1,53 @@
+{
+    "manifest_version": 3,
+    "name": "Twitter DM Helper",
+    "version": "1.0",
+    "description": "Automate Twitter DMs with customizable templates and rate limiting",
+    "icons": {
+        "16": "images/icon.png",
+        "48": "images/icon.png",
+        "128": "images/icon.png"
+    },
+    "permissions": [
+        "clipboardWrite",
+        "cookies",
+        "notifications",
+        "storage",
+        "scripting",
+        "tabs",
+        "webRequest",
+        "downloads"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://x.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://x.com/*"
+            ],
+            "js": [
+                "inject.js"
+            ],
+            "run_at": "document_end",
+            "world": "MAIN"
+        }
+    ],
+    "host_permissions": [
+        "https://x.com/*"
+    ],
+    "options_page": "options.html",
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self';",
+        "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+    }
+}
